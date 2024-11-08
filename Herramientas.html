@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramientas</title>
+    <style>
+        body, html {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 800px;
+            width: 100%;
+        }
+        .calendar, .calculator {
+            background: #1e1e1e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            padding: 20px;
+            width: 100%;
+            max-width: 350px;
+        }
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .calendar-header h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+        .calendar-header button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .calendar-header button:hover {
+            background: #0056b3;
+        }
+        .days-of-week {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .days-of-week div {
+            width: 14.28%;
+            text-align: center;
+            font-weight: bold;
+        }
+        .calendar-grid {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .calendar-grid div {
+            width: 14.28%;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #333;
+            box-sizing: border-box;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .calendar-grid div:hover {
+            background-color: #444;
+        }
+        .calendar-grid div.empty {
+            background-color: #2e2e2e;
+            cursor: default;
+        }
+        .calendar-grid div.today {
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+        .display {
+            background-color: #111;
+            color: #0f0;
+            font-size: 24px;
+            padding: 15px;
+            border-radius: 4px;
+            text-align: right;
+            margin-bottom: 10px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .button {
+            background-color: #444;
+            color: #fff;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .button:hover {
+            background-color: #555;
+        }
+        .button.operator {
+            background-color: #f39c12;
+        }
+        .button.operator:hover {
+            background-color: #e67e22;
+        }
+        .button.equal {
+            background-color: #27ae60;
+            grid-column: span 2;
+        }
+        .button.clear {
+            background-color: #e74c3c;
+            grid-column: span 2;
+        }
+        .button:active {
+            background-color: #666;
+        }
+        body, html {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .tool {
+            background: #1e1e1e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 350px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .tool input, .tool select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        .tool button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .tool button:hover {
+            background-color: #0056b3;
+        }
+         /* Icono de menú hamburguesa */
+         .menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+
+        /* Menú de Navegación */
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        nav ul li a {
+            color: rgb(223, 211, 211);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5em 1em;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: rgb(235, 226, 226);
+            color: #050a0f;
+        }
+
+        /* Menú móvil */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            background-color: #07080a;
+        }
+        .mobile-menu li {
+            margin: 15px 0;
+        }
+
+        /* Imagen */
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin-top: 100px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Canvas */
+        canvas {
+            width: 100%;
+            height: 300px;
+            margin-top: 20px;
+            background-color: #e1e7ed;
+            border-radius: 10px;
+        }
+
+        /* Estilos para la sección de logos deslizantes */
+        .logo-slider {
+            overflow: hidden;
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #040410;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            width: 200%;
+            animation: slide 20s linear infinite;
+            align-items: center;
+        }
+
+        .logo-container img {
+            width: 100px;
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Sección de "Accelerate performance" */
+        .main-section {
+            text-align: center;
+            margin-top: 150px; /* Ajusta la posición para que no se superponga con el header */
+            padding: 20px;
+            max-width: 800px;
+            animation: flicker 1.5s infinite alternate; /* Animación parpadeo */
+        }
+
+        .main-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 1.2em;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
+            background: linear-gradient(145deg, #6c63ff, #8f8cff);
+            border-radius: 50%;
+            box-shadow: 0px 0px 15px rgba(140, 130, 255, 0.6);
+        }
+
+          /* Estilos Responsivos */
+          @media (max-width: 768px) {
+            .menu-icon {
+                display: block;
+            }
+            nav ul {
+                display: none;
+            }
+            .mobile-menu {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                z-index: 10;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+            .mobile-menu.open {
+                display: flex;
+            }
+            .main-title {
+                font-size: 2em;
+            }
+            .logo-container img {
+                width: 80px;
+                margin: 0 5px;
+            }
+            .description {
+                font-size: 1em;
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <span class="menu-icon" onclick="toggleMenu()">☰</span>
+        <nav>
+            <ul class="mobile-menu">
+                <li><a href="Inicio.html">Inicio</a></li>
+                <li><a href="MarcoTeorico.html">Marco Teórico</a></li>
+                <li><a href="Herramientas.html">Herramientas</a></li>
+                <li><a href="herramientas y recomendaciones.html">Recomendador</a></li>
+                <li><a href="codigo.html">Código</a></li>
+                <li><a href="funcionamiento.html">Funcionamiento</a></li>
+                <li><a href="fotos.html">Fotos</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Herramientas</h1>
+    <div class="container">
+        <div class="calendar">
+            <div class="calendar-header">
+                <button onclick="prevMonth()">Anterior</button>
+                <h2 id="monthYear"></h2>
+                <button onclick="nextMonth()">Siguiente</button>
+            </div>
+            <div class="days-of-week">
+                <div>Dom</div>
+                <div>Lun</div>
+                <div>Mar</div>
+                <div>Mié</div>
+                <div>Jue</div>
+                <div>Vie</div>
+                <div>Sáb</div>
+            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+        
+        <div class="calculator">
+            <div class="display" id="display">0</div>
+            <div class="buttons">
+                <button class="button" onclick="append('7')">7</button>
+                <button class="button" onclick="append('8')">8</button>
+                <button class="button" onclick="append('9')">9</button>
+                <button class="button operator" onclick="append('/')">÷</button>
+                <button class="button" onclick="append('4')">4</button>
+                <button class="button" onclick="append('5')">5</button>
+                <button class="button" onclick="append('6')">6</button>
+                <button class="button operator" onclick="append('*')">×</button>
+                <button class="button" onclick="append('1')">1</button>
+                <button class="button" onclick="append('2')">2</button>
+                <button class="button" onclick="append('3')">3</button>
+                <button class="button operator" onclick="append('-')">−</button>
+                <button class="button" onclick="append('0')">0</button>
+                <button class="button" onclick="append('.')">.</button>
+                <button class="button operator" onclick="append('+')">+</button>
+                <button class="button equal" onclick="calculate()">=</button>
+                <button class="button clear" onclick="clearDisplay()">C</button>
+                <button class="button operator" onclick="append('**')">x²</button>
+                <button class="button operator" onclick="append('Math.sqrt(')">√</button>
+                <button class="button operator" onclick="append('Math.sin(')">sin</button>
+                <button class="button operator" onclick="append('Math.cos(')">cos</button>
+                <button class="button operator" onclick="append('Math.tan(')">tan</button>
+                <button class="button operator" onclick="append('Math.log(')">ln</button>
+                <button class="button operator" onclick="append('Math.exp(')">eˣ</button>
+                <button class="button operator" onclick="append('Math.PI')">π</button>
+                <button class="button operator" onclick="append('Math.E')">e</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const calendarGrid = document.getElementById('calendarGrid');
+        const monthYear = document.getElementById('monthYear');
+        let currentDate = new Date();
+
+        function renderCalendar(date) {
+            calendarGrid.innerHTML = '';
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+
+            monthYear.textContent = date.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+
+            for (let i = 0; i < firstDay; i++) {
+                calendarGrid.innerHTML += '<div class="empty"></div>';
+            }
+
+            for (let day = 1; day <= lastDate; day++) {
+                const dayClass = (today.getDate() === day && today.getMonth() === month && today.getFullYear() === year) ? 'today' : '';
+                calendarGrid.innerHTML += `<div class="${dayClass}">${day}</div>`;
+            }
+        }
+
+        function prevMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar(currentDate);
+        }
+
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar(currentDate);
+        }
+
+        function updateCalendar() {
+            const now = new Date();
+            if (now.getDate() !== currentDate.getDate()) {
+                currentDate = now;
+                renderCalendar(currentDate);
+            }
+        }
+
+        renderCalendar(currentDate);
+        setInterval(updateCalendar, 1000 * 60 * 60); // Actualiza cada hora
+
+        let display = document.getElementById("display");
+
+        function append(value) {
+            if (display.innerText === "0" && value !== '.') {
+                display.innerText = "";
+            }
+            display.innerText += value;
+        }
+
+        function calculate() {
+            try {
+                display.innerText = eval(display.innerText);
+            } catch {
+                display.innerText = "Error";
+            }
+        }
+
+        function clearDisplay() {
+            display.innerText = "0";
+        }
+    </script>
+     <!-- Conversor de Unidades -->
+     <div class="tool">
+        <h2>Conversor de Unidades</h2>
+        <label>Valor:</label>
+        <input type="number" id="unitInput" placeholder="Ingresa el valor">
+        <label>Unidad desde:</label>
+        <select id="unitFrom">
+            <option value="1">Metro</option>
+            <option value="0.001">Milímetro</option>
+            <option value="1000">Kilómetro</option>
+        </select>
+        <label>Unidad hasta:</label>
+        <select id="unitTo">
+            <option value="1">Metro</option>
+            <option value="0.001">Milímetro</option>
+            <option value="1000">Kilómetro</option>
+        </select>
+        <button onclick="convertUnits()">Convertir</button>
+        <p id="unitResult"></p>
+    </div>
+
+    <!-- Ley de Ohm -->
+    <div class="tool">
+        <h2>Calculadora de Ley de Ohm</h2>
+        <label>Voltaje (V):</label>
+        <input type="number" id="voltaje" placeholder="Ingresa el voltaje">
+        <label>Resistencia (Ω):</label>
+        <input type="number" id="resistencia" placeholder="Ingresa la resistencia">
+        <button onclick="calcularCorriente()">Calcular Corriente (I)</button>
+        <p id="ohmResult"></p>
+    </div>
+
+    <!-- Resistencia en Serie y Paralelo -->
+    <div class="tool">
+        <h2>Resistencias en Serie y Paralelo</h2>
+        <label>Resistencia 1 (Ω):</label>
+        <input type="number" id="res1" placeholder="Ingresa R1">
+        <label>Resistencia 2 (Ω):</label>
+        <input type="number" id="res2" placeholder="Ingresa R2">
+        <button onclick="calcularSerie()">Calcular Serie</button>
+        <button onclick="calcularParalelo()">Calcular Paralelo</button>
+        <p id="resistenciaResult"></p>
+    </div>
+</div>
+
+<script>
+    // Conversor de Unidades
+    function convertUnits() {
+        const input = parseFloat(document.getElementById("unitInput").value);
+        const from = parseFloat(document.getElementById("unitFrom").value);
+        const to = parseFloat(document.getElementById("unitTo").value);
+        const result = input * (from / to);
+        document.getElementById("unitResult").innerText = `Resultado: ${result}`;
+    }
+
+    // Calculadora de Ley de Ohm
+    function calcularCorriente() {
+        const voltaje = parseFloat(document.getElementById("voltaje").value);
+        const resistencia = parseFloat(document.getElementById("resistencia").value);
+        if (resistencia === 0) {
+            document.getElementById("ohmResult").innerText = "Resistencia no puede ser 0";
+        } else {
+            const corriente = voltaje / resistencia;
+            document.getElementById("ohmResult").innerText = `Corriente: ${corriente} A`;
+        }
+    }
+
+    // Resistencia en Serie
+    function calcularSerie() {
+        const r1 = parseFloat(document.getElementById("res1").value);
+        const r2 = parseFloat(document.getElementById("res2").value);
+        const serie = r1 + r2;
+        document.getElementById("resistenciaResult").innerText = `Resistencia en Serie: ${serie} Ω`;
+    }
+
+    // Resistencia en Paralelo
+    function calcularParalelo() {
+        const r1 = parseFloat(document.getElementById("res1").value);
+        const r2 = parseFloat(document.getElementById("res2").value);
+        if (r1 === 0 || r2 === 0) {
+            document.getElementById("resistenciaResult").innerText = "Las resistencias deben ser mayores que 0";
+        } else {
+            const paralelo = (r1 * r2) / (r1 + r2);
+            document.getElementById("resistenciaResult").innerText = `Resistencia en Paralelo: ${paralelo} Ω`;
+        }
+    }
+     // Función para mostrar/ocultar el menú móvil
+     function toggleMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('open');
+        }
+</script>
+</body>
+</html>
+

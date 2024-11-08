@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Recomendación de Herramientas</title>
+    <style>
+        /* Estilos Generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            color: #000000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #070303;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+            width: 100%;
+        }
+        header h1 {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .main-container {
+            max-width: 900px;
+            width: 100%;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .info-section {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-section h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .info-section p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        #recommendations ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #recommendations li {
+            background-color: #e4e4e4;
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #recommendations a {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+
+        #recommendations a:hover {
+            text-decoration: underline;
+        }
+         /* Icono de menú hamburguesa */
+         .menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+
+        /* Menú de Navegación */
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        nav ul li a {
+            color: rgb(223, 211, 211);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5em 1em;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: rgb(235, 226, 226);
+            color: #050a0f;
+        }
+
+        /* Menú móvil */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            background-color: #07080a;
+        }
+        .mobile-menu li {
+            margin: 15px 0;
+        }
+
+        /* Imagen */
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin-top: 100px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Canvas */
+        canvas {
+            width: 100%;
+            height: 300px;
+            margin-top: 20px;
+            background-color: #e1e7ed;
+            border-radius: 10px;
+        }
+
+        /* Estilos para la sección de logos deslizantes */
+        .logo-slider {
+            overflow: hidden;
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #040410;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            width: 200%;
+            animation: slide 20s linear infinite;
+            align-items: center;
+        }
+
+        .logo-container img {
+            width: 100px;
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Sección de "Accelerate performance" */
+        .main-section {
+            text-align: center;
+            margin-top: 150px; /* Ajusta la posición para que no se superponga con el header */
+            padding: 20px;
+            max-width: 800px;
+            animation: flicker 1.5s infinite alternate; /* Animación parpadeo */
+        }
+
+        .main-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 1.2em;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
+            background: linear-gradient(145deg, #6c63ff, #8f8cff);
+            border-radius: 50%;
+            box-shadow: 0px 0px 15px rgba(140, 130, 255, 0.6);
+        }
+
+          /* Estilos Responsivos */
+          @media (max-width: 768px) {
+            .menu-icon {
+                display: block;
+            }
+            nav ul {
+                display: none;
+            }
+            .mobile-menu {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                z-index: 10;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+            .mobile-menu.open {
+                display: flex;
+            }
+            .main-title {
+                font-size: 2em;
+            }
+            .logo-container img {
+                width: 80px;
+                margin: 0 5px;
+            }
+            .description {
+                font-size: 1em;
+                padding: 0 15px;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <span class="menu-icon" onclick="toggleMenu()">☰</span>
+        <nav>
+            <ul class="mobile-menu">
+                <li><a href="Inicio.html">Inicio</a></li>
+                <li><a href="MarcoTeorico.html">Marco Teórico</a></li>
+                <li><a href="Herramientas.html">Herramientas</a></li>
+                <li><a href="herramientas y recomendaciones.html">Recomendador</a></li>
+                <li><a href="codigo.html">Código</a></li>
+                <li><a href="funcionamiento.html">Funcionamiento</a></li>
+                <li><a href="fotos.html">Fotos</a></li>
+            </ul>
+        </nav>
+    </header>
+    <header><h1>Sistema de Recomendaciones</h1></header>
+
+    <div class="main-container">
+        <div class="info-section">
+            <h2>Recomendaciones Personalizadas</h2>
+            <p>🔍 Basado en las herramientas que has usado, te recomendamos explorar estos recursos relacionados para mejorar tu experiencia académica. 👩‍🔬👨‍🔧</p>
+            <div id="recommendations">
+                <h3>Herramientas relacionadas:</h3>
+                <ul id="recommendedTools">
+                    <!-- Las recomendaciones se agregarán aquí mediante JavaScript -->
+                </ul>
+            </div>
+        </div>
+        <div class="info-section">
+            <h2>Explora más</h2>
+            <p>👨‍🔧 Si deseas saber más sobre cómo utilizar las herramientas, consulta los siguientes artículos:</p>
+            <ul>
+                <li><a href="https://example.com/articulo1" target="_blank">Articulo 1: Introducción a las herramientas para ingeniería</a></li>
+                <li><a href="https://example.com/articulo2" target="_blank">Articulo 2: Cómo mejorar tu productividad con herramientas académicas</a></li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        // Lista de herramientas disponibles
+        const tools = {
+            'Herramienta 1': ['Calculadora', 'Resistencias', 'Mecánica'],
+            'Herramienta 2': ['Calendario', 'Unidad', 'Electrónica'],
+            'Herramienta 3': ['Código', 'Photoshop', 'Marco Teórico'],
+            'Herramienta 4': ['Resistencias', 'Mecánica', 'Electrónica']
+        };
+
+        // Función para registrar una herramienta visitada
+        function registerToolUsage(tool) {
+            let usageHistory = JSON.parse(localStorage.getItem('toolUsage')) || [];
+            
+            if (!usageHistory.includes(tool)) {
+                usageHistory.push(tool);
+                localStorage.setItem('toolUsage', JSON.stringify(usageHistory));
+            }
+        }
+
+        // Función para obtener las herramientas relacionadas
+        function getRecommendations() {
+            const usageHistory = JSON.parse(localStorage.getItem('toolUsage')) || [];
+            const recommendations = [];
+
+            usageHistory.forEach(tool => {
+                if (tools[tool]) {
+                    tools[tool].forEach(relatedTool => {
+                        if (!recommendations.includes(relatedTool)) {
+                            recommendations.push(relatedTool);
+                        }
+                    });
+                }
+            });
+
+            return recommendations;
+        }
+
+        // Función para mostrar recomendaciones
+        function displayRecommendations() {
+            const recommendations = getRecommendations();
+            const recommendationsList = document.getElementById('recommendedTools');
+            
+            recommendationsList.innerHTML = '';
+            
+            recommendations.forEach(recommendedTool => {
+                const li = document.createElement('li');
+                li.textContent = recommendedTool;
+                recommendationsList.appendChild(li);
+            });
+        }
+
+        // Registrar las herramientas que el usuario utiliza (esto se puede automatizar o personalizar según la interacción)
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simulación de herramienta visitada, por ejemplo, "Herramienta 1"
+            registerToolUsage('Herramienta 1');
+            registerToolUsage('Herramienta 2');
+            registerToolUsage('Herramienta 4');
+            
+            // Mostrar recomendaciones al cargar la página
+            displayRecommendations();
+        });
+        // Función para mostrar/ocultar el menú móvil
+        function toggleMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

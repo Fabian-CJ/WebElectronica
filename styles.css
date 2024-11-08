@@ -1,0 +1,285 @@
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+header {
+    background-color: #ede6e6; /* Color de fondo del encabezado */
+    color: rgb(6, 2, 2);
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para el encabezado */
+}
+/* Estilos de las letras de advetencia de descarga */
+p.descarga {
+    font-size: 18px; /* Tamaño de fuente */
+    color: hsl(0, 100%, 50%);
+    justify-self: center; /* Centrar el texto*/
+}
+/* Estilos del menú de navegación */
+nav {
+    margin-top: 10px; /* Espaciado superior para el menú */
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex; /* Usar flexbox para un mejor alineamiento */
+    justify-content: center; /* Centrar los elementos del menú */
+}
+
+nav ul li {
+    position: relative; /* Para el pseudo-elemento */
+    margin: 0 20px; /* Espaciado entre elementos del menú */
+}
+
+nav a {
+    font-size: 3em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: #dce9e9;
+    font-size: 18px; /* Tamaño de fuente */
+    padding: 12px 15px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+
+/* Efecto de hover */
+nav a:hover {
+    background-color: rgba(5, 4, 4, 0.2); /* Fondo claro al pasar el mouse */
+    transform: scale(1.1); /* Aumentar ligeramente el tamaño al pasar el mouse */
+}
+
+/* Efecto de subrayado en el texto */
+nav a:after {
+    content: ''; /* Crear un pseudo-elemento */
+    position: absolute;
+    width: 100%; /* Ancho del subrayado */
+    height: 2px; /* Altura del subrayado */
+    background: rgb(224, 222, 222); /* Color del subrayado */
+    left: 0;
+    bottom: -5px; /* Posición del subrayado */
+    transform: scaleX(0); /* Inicialmente oculto */
+    transition: transform 0.3s ease; /* Transición para el subrayado */
+}
+
+nav a:hover:after {
+    transform: scaleX(1); /* Mostrar el subrayado al pasar el mouse */
+}
+
+/* Estilos para el contenido principal */
+main {
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 20px;
+    background-color: rgb(239, 238, 238);
+    padding: 20px;
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(199, 194, 194, 0.897); /* Sombra para las secciones */
+}
+
+h2 {
+    color: #007BFF; /* Color del texto de los encabezados */
+    font-family: 'Arial', sans-serif;
+}
+
+/* Estilos para los botones */
+button {
+    padding: 12px 20px; /* Espaciado interno */
+    background-color: #28a745; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar el mouse */
+    font-size: 16px; /* Tamaño de fuente */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+    font-weight: bold; /* Texto en negrita */
+}
+
+button:hover {
+    background-color: #218838; /* Color de fondo al pasar el mouse */
+    transform: translateY(-2px); /* Efecto de elevación al pasar el mouse */
+}
+
+button:active {
+    background-color: #1e7e34; /* Color de fondo cuando se presiona */
+    transform: translateY(0); /* Restablecer elevación al presionar */
+}
+
+/* Estilos para el pie de página */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #007BFF; /* Color de fondo del pie de página */
+    color: rgb(16, 5, 5);
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Estilos para la galería */
+#galeria {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+#galeria img {
+    max-width: 250px; /* Ajusta el tamaño del tamaño de las imagenes */
+    border-radius: 4px;
+}
+#foto img {
+    max-width: 600px; /* Ajusta el tamaño del tamaño de las imagenes */
+    border-radius: 4px;
+}
+#descarga img {
+    max-width: 260px; /* Ajusta el tamaño del tamaño de las imagenes */
+    border-radius: 4px;
+}
+#imag2{
+    max-width: 250px; /* Ajusta el tamaño del tamaño de las imagenes */
+    border-radius: 4px;
+}
+/*estilo de la advertencia*/
+button {
+    background-color: #004080;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #003366;
+}
+
+.warning-bar {
+    background-color: #ffc107;
+    color: #333;
+    padding: 15px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+
+.warning-bar i {
+    margin-right: 10px;
+}
+
+.accept-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.accept-button:hover {
+    background-color: #218838;
+}
+
+#foto {
+    margin-top: 10px;
+}
+
+#foto img {
+    max-width: 100%;
+    height: auto;
+}
+
+/*decoracion de sub-barra*/
+
+/*<------------->*/
+body {
+    background-color: #0e0b22; /* Color de fondo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.logo-slider {
+    overflow: hidden;
+    width: 80%;
+}
+
+.logo-container {
+    display: flex;
+    width: 200%;
+    animation: slide 20s linear infinite;
+}
+
+.logo-container img {
+    width: 150px; /* Ajusta el tamaño según sea necesario */
+    margin: 0 20px;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+/*<------------->*/
+
+      /* Sección principal de texto */
+.main-section {
+        text-align: center;
+        margin-top: 50px;
+    }
+    
+    
+    /* Título principal */
+.main-title {
+        font-size: 3em;
+        font-weight: bold;
+        color: #ffffff;
+        margin-bottom: 10px;
+    } 
+
+    /* Texto descriptivo */
+.description {
+        font-size: 1.2em;
+        color: #b0b0b0;
+        max-width: 600px;
+        margin: auto;
+    }
+
+.info-section h2 {
+        color: #28a745;
+        margin-bottom: 15px;
+    }
+.info-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+.info-list div {
+        flex-basis: calc(50% - 10px);
+        margin-bottom: 10px;
+    }
+.info-list a {
+        color: #007bff;
+        text-decoration: none;
+    }
+.info-list a:hover {
+        text-decoration: underline;
+    }

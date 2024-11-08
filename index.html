@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto de Avión</title>
+    <style>
+        /* Estilos Generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            font-family: Arial, sans-serif;
+            background-color: #0a0a0a; /* Fondo oscuro */
+            color: #f2f2f2; /* Texto claro */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+        }
+        header {
+            background-color: #000000; /* Color de fondo de encabezado */
+            color: rgb(243, 240, 240);
+            padding: 1em;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        /* Icono de menú hamburguesa */
+        .menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+
+        /* Menú de Navegación */
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        nav ul li a {
+            color: rgb(223, 211, 211);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5em 1em;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: rgb(235, 226, 226);
+            color: #050a0f;
+        }
+        /* Estilos del Submenú */
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #ffffff; /* Fondo del submenú */
+            color: #000; /* Color de texto del submenú */
+            padding: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+        .submenu li {
+            padding: 5px 20px;
+        }
+        .submenu li a {
+            color: #000;
+            font-weight: normal;
+        }
+        .submenu li a:hover {
+            background-color: #f0f0f0;
+            color: #000;
+        }
+        nav ul li:hover .submenu {
+            display: block;
+        }
+
+        /* Menú móvil */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            background-color: #07080a;
+        }
+        .mobile-menu li {
+            margin: 15px 0;
+        }
+
+        /* Imagen */
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin-top: 100px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Canvas */
+        canvas {
+            width: 100%;
+            height: 300px;
+            margin-top: 20px;
+            background-color: #e1e7ed;
+            border-radius: 10px;
+        }
+
+        /* Estilos para la sección de logos deslizantes */
+        .logo-slider {
+            overflow: hidden;
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #040410;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            width: 200%;
+            animation: slide 20s linear infinite;
+            align-items: center;
+        }
+
+        .logo-container img {
+            width: 100px;
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Sección de "Accelerate performance" */
+        .main-section {
+            text-align: center;
+            margin-top: 150px; /* Ajusta la posición para que no se superponga con el header */
+            padding: 20px;
+            max-width: 800px;
+            animation: flicker 1.5s infinite alternate; /* Animación parpadeo */
+        }
+
+        .main-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 1.2em;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
+            background: linear-gradient(145deg, #6c63ff, #8f8cff);
+            border-radius: 50%;
+            box-shadow: 0px 0px 15px rgba(140, 130, 255, 0.6);
+        }
+
+        /* Estilos Responsivos */
+        @media (max-width: 768px) {
+            .menu-icon {
+                display: block;
+            }
+            nav ul {
+                display: none;
+            }
+            .mobile-menu {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                z-index: 10;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+            .mobile-menu.open {
+                display: flex;
+            }
+            .main-title {
+                font-size: 2em;
+            }
+            .logo-container img {
+                width: 80px;
+                margin: 0 5px;
+            }
+            .description {
+                font-size: 1em;
+                padding: 0 15px;
+            }
+        }
+
+        /* Estilos para la nueva sección de información */
+        .info-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            max-width: 1200px;
+        }
+        .info-section div {
+            flex: 1;
+            min-width: 300px;
+            margin: 10px;
+            padding: 20px;
+            background-color: #262626;
+            border-radius: 10px;
+            color: #e1e1e1;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .info-section h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        .info-section p {
+            font-size: 1em;
+            margin-bottom: 10px;
+            color: #b0b0b0;
+        }
+        .info-section a {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+        .info-section a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<script src="//code.tidio.co/e7e6j5pdbz14bevpfihfj1bgh3qcn8ll.js" async></script>
+<body>
+    <header>
+        <span class="menu-icon" onclick="toggleMenu()">☰</span>
+        <nav>
+            <ul>
+                <li><a href="Inicio.html">Inicio</a></li>
+                <li><a href="MarcoTeorico.html">Marco Teórico</a></li>
+                <li><a href="Herramientas.html">Herramientas</a></li>
+                <li><a href="herramientas y recomendaciones.html">Recomendador</a></li>
+                <li><a href="codigo.html">Código</a></li>
+                <li><a href="funcionamiento.html">Funcionamiento</a></li>
+                <li><a href="fotos.html">Fotos</a></li>
+
+            </ul>
+            <ul class="mobile-menu">
+                <li><a href="Inicio.html">Inicio</a></li>
+                <li><a href="MarcoTeorico.html">Marco Teórico</a></li>
+                <li><a href="Herramientas.html">Herramientas</a></li>
+                <li><a href="herramientas y recomendaciones.html">Recomendador</a></li>
+                <li><a href="codigo.html">Código</a></li>
+                <li><a href="funcionamiento.html">Funcionamiento</a></li>
+                <li><a href="fotos.html">Fotos</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="main-section">
+        <!-- Logo de estilo Copilot -->
+        <div class="logo"></div>
+        <h1 class="main-title">¡Bienvenidos a la herramienta definitiva para estudiantes de ingeniería! </h1>
+        <p class="description">El objetivo de este proyecto es crear  todo lo que necesitas para facilitar tu camino académico, Esta aplicación ha sido creada pensando en ti, para que cada cálculo, cada proyecto y cada entrega sea más sencilla.<br>
+            💡 Aprovecha al máximo tus estudios y lleva tus proyectos al siguiente nivel! 💡</p>
+    </div>
+    <div class="main-section">
+        <!-- Logo de estilo Copilot -->
+        <div class="logo"></div>
+        <h1 class="main-title">INFORMATE</h1>
+        <p class="description">Sabias que contamos con una caja de herramientas útiles para estudiantes ve al apartado de "Herramientas" para que puedas ver como funcionamos.</p>
+    </div>
+    <!-- Nueva sección de información -->
+    <div class="info-section">
+        <div>
+            <h2>Sabias que 55% de los estudiantes buscan la facilidad </h2>
+            <p>🔧 ¡Explora nuestras Herramientas para Estudiantes! 🔧<br>
+                Entra a nuestro apartado de herramientas y descubre un conjunto de recursos diseñados especialmente para facilitarte la vida académica 📚. Aquí encontrarás:<br>
+                📅 Calendario<br>
+                🧮 Calculadora científica para resolver problemas complejos<br>
+                🔄 Convertidor de unidades para tus cálculos de física e ingeniería<br>
+                ⚙️ Calculadora de resistencias en serie y paralelo para tus proyectos electrónicos<br>
+                Todo en un solo lugar para ayudarte a estudiar de manera más eficiente. ¡No pierdas tiempo y explora estas herramientas ahora mismo! 👩‍🔬👨‍🔧</p>
+            <a href="Herramientas.html">herramientas</a>
+        </div>
+        <div>
+            <h2>Servidor de discord</h2>
+            <p>Si estás buscando un lugar para relajarte, conocer gente increíble y compartir tus intereses, ¡este es el servidor perfecto para ti! 🎮✨ Ya sea que quieras hablar de tus juegos favoritos, compartir memes, o simplemente pasar el rato, AFK es la comunidad ideal para desconectar y divertirte.
+
+                No importa si eres un gamer, estudiante, o simplemente alguien buscando buenos amigos, ¡aquí siempre serás bienvenido!
+                
+                🖤 Haz clic en el enlace y únete a nuestra comunidad AFK hoy mismo!</p>
+            <a href="https://discord.gg/PgkMtPyc">https://discord.gg/PgkMtPyc</a>
+        </div>
+        <div>
+            <h2>Uso del chat de soporte</h2>
+            <p>👋 ¡Bienvenido/a! En este chat, puedes compartir y discutir tus proyectos libremente. Sube tus códigos, informes, fotos y cualquier avance en tus proyectos; estamos aquí para ayudarte y brindarte soporte. 📂💻✨<br>
+                ¡Comparte tus ideas y hagamos crecer juntos tus proyectos!</p>
+        </div>
+        <div>
+            <h2>Implementacion de sistema Recomendador</h2>
+            <p>Te invitamos a descubrir nuestro Sistema de Recomendación especialmente diseñado para estudiantes como tú. Basado en las herramientas que usas con más frecuencia, te sugerimos recursos adicionales que pueden ayudarte a mejorar tu rendimiento académico. ¡No te pierdas la oportunidad de descubrir nuevas herramientas y artículos que potenciarán tus estudios de ingeniería!</p>
+        </div>
+    </div>
+    <div class="main-section">
+        <!-- Logo de estilo Copilot -->
+        <div class="logo"></div>
+        <h1 class="main-title">ATAJOS</h1>
+    </div>
+    <!-- Nueva sección de información -->
+    <div class="info-section">
+        <div>
+            <h2>Navega con facilidad </h2>
+            <p>🚀 ¡Usa los atajos y optimiza tu tiempo! 🚀</p>
+            <a href="https://www.q10.com/Colombia">Q10</a><br>
+            <a href="https://portal.uninunez.edu.co/#/login">Portal UNINÚÑEZ</a><br>
+            <a href="https://workspace.google.com/intl/es-419/gmail/">Gmail</a>        
+        </div>
+        <div>
+            <h2>Comunicado</h2>
+            <p>🔧 ¡Bienvenidos a la Prueba Beta de Nuestro Proyecto!<br>
+                Estamos emocionados de anunciar que nuestra página web está en fase de prueba beta. Esto significa que aún estamos trabajando en nuevas funcionalidades y mejoras para hacerla aún más útil para ti. Durante esta fase, podrás acceder a herramientas como el Sistema de Recomendación, las cuales seguirán evolucionando con el tiempo.<br>
+                Próximas Actualizaciones:<br>
+                A medida que avanzamos, lanzaremos nuevas herramientas, recursos y características para que tu experiencia académica sea aún mejor. ¡Esperamos contar con tu apoyo y tus comentarios para seguir mejorando!<br>
+                Gracias por ser parte de esta fase de prueba. ¡Tu opinión es fundamental!</p>
+        </div>
+    </div>
+    <div class="main-section">
+        <!-- Logo de estilo Copilot -->
+        <div class="logo"></div>
+        <h1 class="main-title">UNINÚÑEZ</h1>
+        <h1 class="main-title">Corporación Universitaria Rafael Núñez</h1>
+        <p class="description">Una institución de educación superior fundada en 1985, con sedes en las ciudades de Cartagena y Barranquilla, bajo la vigilancia y regulación del Ministerio de Educación Nacional de Colombia.</p>
+    </div>
+    <main>
+        <section>
+            <div>
+                <img src="imagenes/banner-campus-universitarios.jpg" alt="Descripción de foto 1">
+            </div>
+        </section>
+        <div class="logo-slider">
+            <div class="logo-container">
+                <img src="imagenes/images.png" alt="Logo 1">
+                <img src="imagenes/inicio1.png" alt="Logo 2">
+                <img src="imagenes/inicio2.png" alt="Logo 3">
+                <img src="imagenes/visual-studio-code.webp" alt="Logo 4">
+                <img src="imagenes/discord-logo-2-1.png" alt="Logo 5">
+            </div>
+        </div>
+    </main>
+    <script>
+        // Función para mostrar/ocultar el menú móvil
+        function toggleMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

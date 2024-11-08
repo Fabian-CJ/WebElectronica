@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descargar Archivo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Aplica el color de fondo a toda la página */
+        body {
+            background-color: #060303; /* Cambia el color según prefieras */
+            margin: 0; /* Elimina los márgenes del body para que el color cubra toda el área */
+            font-family: Arial, sans-serif;
+        }
+        .contenido {
+            width: 90%; /* Ancho adaptable */
+            max-width: 800px; /* Ancho máximo en pantallas grandes */
+            padding: 20px;
+            background-color: rgb(3, 2, 2);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto; /* Márgenes en dispositivos pequeños y centrar el contenedor */
+        }
+
+        /* Ajustes para pantallas pequeñas (teléfonos) */
+        @media (max-width: 600px) {
+            .contenido {
+                padding: 15px; /* Reduce el padding en teléfonos */
+                margin: 10px auto;  /* Menos margen alrededor */
+            }
+        }
+
+        /* Estilo de la barra de advertencia */
+        .warning-bar {
+            display: flex;
+            align-items: center;
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .warning-bar i {
+            margin-right: 10px;
+        }
+
+        .accept-button {
+            margin-left: auto;
+            padding: 5px 10px;
+            background-color: #f1c40f;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .accept-button:hover {
+            background-color: #d4ac0d;
+        }
+
+        /* Estilo de la sección de descarga */
+        #descarga img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        a.download-link {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            background-color: #5c3a3a;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        a.download-link:hover {
+            background-color: #934451;
+        }
+                 /* Icono de menú hamburguesa */
+                 .menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+
+        /* Menú de Navegación */
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        nav ul li a {
+            color: rgb(223, 211, 211);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5em 1em;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: rgb(235, 226, 226);
+            color: #050a0f;
+        }
+
+        /* Menú móvil */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            background-color: #07080a;
+        }
+        .mobile-menu li {
+            margin: 15px 0;
+        }
+
+        /* Imagen */
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin-top: 100px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Canvas */
+        canvas {
+            width: 100%;
+            height: 300px;
+            margin-top: 20px;
+            background-color: #e1e7ed;
+            border-radius: 10px;
+        }
+
+        /* Estilos para la sección de logos deslizantes */
+        .logo-slider {
+            overflow: hidden;
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #040410;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            width: 200%;
+            animation: slide 20s linear infinite;
+            align-items: center;
+        }
+
+        .logo-container img {
+            width: 100px;
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Sección de "Accelerate performance" */
+        .main-section {
+            text-align: center;
+            margin-top: 150px; /* Ajusta la posición para que no se superponga con el header */
+            padding: 20px;
+            max-width: 800px;
+            animation: flicker 1.5s infinite alternate; /* Animación parpadeo */
+        }
+
+        .main-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 1.2em;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
+            background: linear-gradient(145deg, #6c63ff, #8f8cff);
+            border-radius: 50%;
+            box-shadow: 0px 0px 15px rgba(140, 130, 255, 0.6);
+        }
+
+          /* Estilos Responsivos */
+          @media (max-width: 768px) {
+            .menu-icon {
+                display: block;
+            }
+            nav ul {
+                display: none;
+            }
+            .mobile-menu {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                z-index: 10;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+            .mobile-menu.open {
+                display: flex;
+            }
+            .main-title {
+                font-size: 2em;
+            }
+            .logo-container img {
+                width: 80px;
+                margin: 0 5px;
+            }
+            .description {
+                font-size: 1em;
+                padding: 0 15px;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <span class="menu-icon" onclick="toggleMenu()">☰</span>
+        <nav>
+            <ul class="mobile-menu">
+                <li><a href="Inicio.html">Inicio</a></li>
+                <li><a href="MarcoTeorico.html">Marco Teórico</a></li>
+                <li><a href="Herramientas.html">Herramientas</a></li>
+                <li><a href="herramientas y recomendaciones.html">Recomendador</a></li>
+                <li><a href="codigo.html">Código</a></li>
+                <li><a href="funcionamiento.html">Funcionamiento</a></li>
+                <li><a href="fotos.html">Fotos</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="contenido">
+        <section>
+            <p class="descarga">NOTA: En caso de que quieras descargar el archivo</p>
+            <div id="warning" class="warning-bar">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="warningText"></span>
+                <button id="ArchivoGithub" class="accept-button">Aceptar</button>
+            </div>
+        </section>
+
+        <header>
+            <h1>Descargar Archivo</h1>
+        </header>
+
+        <main>
+            <section>
+                <h2>Archivo WinRAR</h2>
+                <p>Haz clic en el botón de abajo para descargar el archivo:</p>
+                <div id="descarga">
+                    <img src="imagenes/winrar.jpg" alt="Descripción de foto 1">
+                </div>
+                <a href="ruta/al/archivo/Informe DE LABORATORIO-2.docx (2) (1).zip" download="Informe DE LABORATORIO-2.docx (2) (1).zip" class="download-link">Descargar archivo</a>
+            </section>
+
+            <section>
+                <h2>Archivo PDF</h2>
+                <p>Haz clic en el botón de abajo para descargar el archivo:</p>
+                <div id="descarga">
+                    <img src="imagenes/pdf2.jpg" alt="Descripción de foto 1">
+                </div>
+                <a href="ruta/al/archivo/Informe DE LABORATORIO-2.docx (2) (1).pdf" download="Informe DE LABORATORIO-2.docx (2) (1).pdf" class="download-link">Descargar archivo</a>
+            </section>
+
+            <section>
+                <h2>Archivo Github</h2>
+                <div id="descarga">
+                    <img src="imagenes/card.jpg" alt="Descripción de foto 1">
+                </div>
+                <a href="https://github.com/isacc5/descargable1.git" class="download-link">Repositorio</a>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('ArchivoGithub').addEventListener('click', function() {
+            document.getElementById('warning').style.display = 'none';
+        });
+        // Mostrar advertencia
+        window.onload = function() {
+            document.getElementById('warningText').textContent = 'En el caso de que quieras descargar el archivo y salga algun error, te puede ir al link de repositoria de Github';
+        };
+        // Función para mostrar/ocultar el menú móvil
+    function toggleMenu() {
+           const mobileMenu = document.querySelector('.mobile-menu');
+           mobileMenu.classList.toggle('open');
+       }
+    </script>
+</body>
+</html>
+

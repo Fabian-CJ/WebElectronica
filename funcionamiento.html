@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funcionamiento - Proyecto Avión</title>
+    <style>
+        /* Estilos Generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #111; /* Fondo oscuro */
+            color: #ffffff; /* Texto blanco */
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 70px; /* Espacio para el header */
+            margin: 0;
+        }
+        header {
+            background-color: #000000;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        header h1 {
+            font-size: 1.8em;
+            margin: 0;
+        }
+        main {
+            max-width: 800px;
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #222; /* Fondo gris oscuro */
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        h1, h2, h3 {
+            color: #4a90e2; /* Azul claro */
+            margin-bottom: 10px;
+        }
+        p, ol, li {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        ol li {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+
+        /* Botón Siguiente */
+        #siguiente {
+            background-color: #4a90e2;
+            color: white;
+            padding: 12px 24px;
+            font-size: 1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            display: block;
+            margin: 20px auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        #siguiente:hover {
+            background-color: #357ab8;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+            main {
+                width: 95%;
+                padding: 15px;
+            }
+            section {
+                padding: 15px;
+            }
+            #siguiente {
+                width: 100%;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Funcionamiento</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Funcionamiento de de ajuste automático de los alerones de un avión</h2>
+            <h3>Lenguaje en Arduino</h3>
+            <ol>
+                <li>Inclusion de librerias.</li>
+                <p>• <strong>Wire.h</strong>: Para la comunicación I2C.</p>
+                <p>• <strong>PID_v1.h</strong>: Para el controlador PID.</p>
+                <p>• <strong>Servo.h</strong>: Para controlar el servomotor.</p>
+                <p>• <strong>MPU6050.h</strong>: Para interactuar con el sensor de movimiento MPU6050.</p>
+
+                <li>Inicialización de Variables y Objetos</li>
+                <p>• Se crean objetos para el sensor MPU6050 y el servomotor.</p>
+                <p>• Variables <strong>Setpoint</strong>, <strong>Input</strong> y <strong>Output</strong> para el controlador PID.</p>
+                <p>• Definición de constantes PID <strong>Kp</strong>, <strong>Ki</strong>, <strong>Kd</strong>.</p>
+                <p>• Inicialización del objeto PID.</p>
+
+                <li>Configuración Inicial (setup)</li>
+                <p>• Comunicación I2C con <strong>Wire.begin()</strong>.</p>
+                <p>• Comunicación serie con <strong>Serial.begin(9600)</strong>.</p>
+                <p>• Inicialización del sensor y verificación de conexión.</p>
+                <p>• Configuración del servomotor en el pin 9.</p>
+                <p>• Establecimiento del Setpoint en 0 grados.</p>
+                <p>• Configuración del PID en modo automático.</p>
+
+                <li>Bucle Principal (loop)</li>
+                <p>• Lectura de datos de aceleración del MPU6050.</p>
+                <p>• Cálculo de inclinación en grados.</p>
+                <p>• Cálculo del PID.</p>
+                <p>• Ajuste del servomotor según la salida del PID.</p>
+                <p>• Impresión de valores para depuración.</p>
+                <p>• Retraso de 50 ms.</p>
+            </ol>
+        </section>
+        <section>
+            <h3>Lenguaje de programación C++</h3>
+            <p><strong>Librería PID_v1</strong>: Simplifica la implementación del algoritmo PID.</p>
+            <p><strong>Pines</strong>: Pines del Arduino para leer la posición del alerón y controlar el servomotor.</p>
+            <ol>
+                <li>Parámetros PID</li>
+                <p>• <strong>Setpoint</strong>: Ángulo de referencia para el alerón.</p>
+                <p>• <strong>Input</strong>: Valor del sensor (posición actual del alerón).</p>
+                <p>• <strong>Output</strong>: Señal de control enviada al servomotor.</p>
+                <p>• Valores iniciales para Kp, Ki y Kd.</p>
+
+                <li>Setup</li>
+                <p>• Inicialización del sensor y servomotor.</p>
+                <p>• Modo automático del PID y valor del Setpoint.</p>
+
+                <li>Loop</li>
+                <p>• Lectura de posición del alerón.</p>
+                <p>• Cálculo del PID.</p>
+                <p>• Limitación de la salida del PID.</p>
+                <p>• Escritura de la señal de control al servomotor.</p>
+            </ol>
+        </section>
+        <button id="siguiente">Siguiente</button>
+    </main>
+    <script>
+        document.getElementById('siguiente').addEventListener('click', function() {
+            window.location.href = 'siguientePaginafuncionamiento.html';
+        });
+    </script>
+</body>
+</html>

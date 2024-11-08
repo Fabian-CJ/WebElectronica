@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marco Teórico</title>
+    <style>
+        /* Estilos Generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #111; /* Fondo oscuro */
+            color: #ffffff; /* Texto blanco */
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 70px; /* Espacio para el header */
+            margin: 0;
+        }
+        header {
+            background-color: #000000;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        header h1 {
+            font-size: 1.8em;
+            margin: 0;
+        }
+        main {
+            max-width: 800px;
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #222; /* Fondo gris oscuro */
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        h1, h2, h3 {
+            color: #4a90e2; /* Azul claro */
+            margin-bottom: 10px;
+        }
+        p, ol, li {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        ol li {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+
+        /* Botón Siguiente */
+        #siguiente-marco-teorico {
+            background-color: #4a90e2;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 20px auto;
+        }
+        #siguiente-marco-teorico:hover {
+            background-color: #357ab8;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+            main {
+                width: 95%;
+                padding: 15px;
+            }
+            section {
+                padding: 15px;
+            }
+            #siguiente-marco-teorico {
+                width: 100%;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Marco Teórico</h1>
+    </header>
+    <main>
+        <section>
+            <h1>Proyecto de ajuste automático de los alerones de un avión</h1>
+            <h1>¿Qué son los sensores?</h1>
+            <p>
+                Según la Real Academia Española, un sensor es un dispositivo que detecta una determinada acción externa, temperatura, presión, etcétera, y la transmite adecuadamente. Este artefacto toma las señales analógicas externas y las convierte en impulsos eléctricos que son capturados por una serie de circuitos, los cuales modifican para realizar cierto tipo de comportamientos. Estos dispositivos reaccionan a los cambios de las condiciones físicas alterando sus propiedades eléctricas. Por lo tanto, la mayoría de estos dispositivos industriales dependen de sistemas electrónicos para capturar, analizar y transmitir información sobre el medio ambiente.
+                Las características principales de los sensores son:
+            </p>
+            <ol>
+                <li>Rango. Es el valor mínimo y máximo de la variable física que el sensor puede percibir o medir</li>
+                <li>Amplitud. Es la diferencia entre los valores máximos y mínimos de entrada.</li>
+                <li>Exactitud. El error en la medición se especifica en términos de precisión. Se define como la diferencia entre el valor medido y el valor real. Se define en términos de % de la escala completa o % de la lectura.</li>
+                <li>Precisión. Se define como la cercanía entre un conjunto de valores y es diferente de la exactitud.</li>
+                <li>Sensibilidad. Es la relación entre el valor de la salida y el valor de la entrada.</li>
+                <li>Alineación. Es la máxima desviación entre los valores medidos de un sensor de la curva ideal.</li>
+                <li>Histéresis. Es la diferencia en la salida cuando la entrada varía de dos maneras, aumentando y disminuyendo.</li>
+                <li>Resolución. Es el cambio mínimo en la entrada que puede ser detectado por el sensor.</li>
+                <li>Reproducibilidad. Se define como la capacidad del sensor de producir la misma salida cuando se aplica la misma entrada.</li>
+                <li>Repetibilidad. Capacidad del sensor de producir la misma salida cada vez que se aplica la misma entrada y todas las condiciones físicas y de medición se mantienen iguales, incluyendo el operador, el instrumento, las condiciones ambientales, etc.</li>
+                <li>Tiempo de respuesta. Se expresa generalmente como el tiempo en que la salida alcanza un cierto porcentaje de su valor final, en respuesta a un cambio de paso de la entrada.</li>
+            </ol>
+        </section>
+        <button id="siguiente-marco-teorico">Siguiente</button>
+    </main>
+    <script>
+        document.getElementById('siguiente-marco-teorico').addEventListener('click', function() {
+            window.location.href = 'marcoteorico2.html'; // Cambia 'marcoteorico2.html' por la ruta de la página a la que quieras ir
+        });
+    </script>
+</body>
+</html>
